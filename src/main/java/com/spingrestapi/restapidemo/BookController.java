@@ -20,7 +20,7 @@ public class BookController {
 
     @GetMapping("/books/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable(value = "id") Long bookId)
-        throws Exception{
+        throws Exception {
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new Exception("Book " +bookId+" not found"));
         return ResponseEntity.ok().body(book);
@@ -29,6 +29,19 @@ public class BookController {
     @PostMapping("/books")
     public Book createBook(@Valid @RequestBody Book book) {
         return bookRepository.save(book);
+    }
+
+    @PutMapping("/books/{id}")
+    public ResponseEntity<Book> updateBook(@PathVariable(value="id") Long bookId, @Valid @RequestBody Book bookDetails)
+        throws Exception {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new Exception("Book "+bookId+" not found"));
+
+        book.setBookName(bookDetails.getBookName());
+        book.setAuthor(bookDetails.getAuthor());
+
+        final Book updatedBook = bookRepository.save(book);
+        return ResponseEntity.ok(updatedBook);
     }
 
 }
