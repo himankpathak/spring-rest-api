@@ -5,7 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -44,4 +46,15 @@ public class BookController {
         return ResponseEntity.ok(updatedBook);
     }
 
+    @DeleteMapping("/books/{id}")
+    public Map<String, Boolean> deleteBook(@PathVariable(value = "id") Long bookId)
+        throws Exception {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new Exception("Book "+bookId+" not found"));
+
+        bookRepository.delete(book);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("delted", Boolean.TRUE);
+        return response;
+    }
 }
