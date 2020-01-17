@@ -1,0 +1,3 @@
+[submodule "spring-rest-api-frontend"]
+	path = spring-rest-api-frontend
+	url = git@me.github.com:himankpathak/spring-rest-api-frontend.git
