@@ -12,6 +12,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1")
 public class BookController {
+
     @Autowired
     private BookRepository bookRepository;
 
@@ -54,7 +55,7 @@ public class BookController {
 
         bookRepository.delete(book);
         Map<String, Boolean> response = new HashMap<>();
-        response.put("delted", Boolean.TRUE);
+        response.put("deleted", Boolean.TRUE);
         return response;
     }
 }
